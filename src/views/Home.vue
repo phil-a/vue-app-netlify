@@ -92,7 +92,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { Rules } from "@/assets/rules";
 
 @Component
-export default class ContactUs extends Vue {
+export default class Home extends Vue {
   valid = true;
   lazy = false;
   fullName = "";
