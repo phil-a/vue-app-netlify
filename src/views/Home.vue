@@ -1,6 +1,6 @@
 <template>
   <section>
-    <section class="form-seccion">
+    <section>
       <v-row justify="center" align="center" class="py-auto">
         <div class="text-h1 yellow--text text--darken-3">Contact Us!</div>
       </v-row>
@@ -71,7 +71,7 @@
 
             <v-btn
               type="submit"
-              class="btn-contact-us text-capitalize"
+              class="text-capitalize"
               color="#ED8023"
               width="130"
               style="border-radius: 20px; height: 35px"
