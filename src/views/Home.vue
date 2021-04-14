@@ -1,85 +1,99 @@
 <template>
   <section>
-    <section>
-      <v-row justify="center" align="center" class="py-auto">
-        <div class="text-h1 yellow--text text--darken-3">Contact Us!</div>
-      </v-row>
-
-      <v-spacer class="ma-5" />
-
+    <section
+      class="contact-us-section"
+      :style="{
+        backgroundImage:
+          'url(' + require('@/assets/contact-background.webp') + ')',
+      }"
+    >
       <v-row justify="center" class="py-0">
-        <v-col cols="8" md="4" lg="4" class="py-0">
-          <v-form
-            name="contact-us-form"
-            ref="form"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            v-model="valid"
-            :lazy-validation="lazy"
-            @submit.prevent="handleSubmit"
-          >
-            <!-- hidden input for netlify -->
-            <input type="hidden" name="form-name" value="contact-us-form" />
-
-            <!-- Client Full Name -->
-            <div class="label-contact-us">Your Full Name:</div>
-            <v-text-field
-              name="fullName"
-              v-model="fullName"
-              autocomplete="off1"
-              :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
-              color="#F79D20"
-              required
-              outlined
-            />
-
-            <!-- Company Name -->
-            <div class="label-contact-us">Your Company:</div>
-            <v-text-field
-              name="companyName"
-              v-model="companyName"
-              autocomplete="off1"
-              :rules="[rules.required, rules.max100]"
-              color="#F79D20"
-              required
-              outlined
-            />
-
-            <!-- Client Email -->
-            <div class="label-contact-us">Your email:</div>
-            <v-text-field
-              name="clientMail"
-              v-model="clientMail"
-              autocomplete="off1"
-              :rules="[rules.required, rules.email, rules.max100]"
-              color="#F79D20"
-              required
-              outlined
-            />
-
-            <!-- Mail Text -->
-            <div class="label-contact-us">Tell us what you need:</div>
-            <v-textarea
-              name="mailBody"
-              v-model="mailBody"
-              autocomplete="off1"
-              :rules="[rules.required, rules.max255]"
-              color="#F79D20"
-              required
-              outlined
-            />
-
-            <v-btn
-              type="submit"
-              class="text-capitalize"
-              color="#ED8023"
-              width="130"
-              style="border-radius: 20px; height: 35px"
-            >
-              Send
-            </v-btn>
-          </v-form>
+        <v-col cols="4">
+          <v-img
+            src="@/assets/logo.png"
+            contain
+            height="150"
+            width="350"
+            class="mt-10"
+          />
         </v-col>
+        <v-col cols="6" class="py-0">
+          <v-card class="pa-10 mt-10">
+            <div class="text-h1 yellow--text text--darken-3">Get in Touch!</div>
+            <v-spacer class="pt-5" />
+            <v-form
+              name="contact-us-form"
+              ref="form"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              v-model="valid"
+              :lazy-validation="lazy"
+              @submit.prevent="handleSubmit"
+            >
+              <!-- hidden input for netlify -->
+              <input type="hidden" name="form-name" value="contact-us-form" />
+
+              <!-- Client Full Name -->
+              <div class="label-contact-us">Your Full Name:</div>
+              <v-text-field
+                name="fullName"
+                v-model="fullName"
+                autocomplete="off1"
+                :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
+                color="#F79D20"
+                required
+                outlined
+              />
+
+              <!-- Company Name -->
+              <div class="label-contact-us">Your Company:</div>
+              <v-text-field
+                name="companyName"
+                v-model="companyName"
+                autocomplete="off1"
+                :rules="[rules.required, rules.max100]"
+                color="#F79D20"
+                required
+                outlined
+              />
+
+              <!-- Client Email -->
+              <div class="label-contact-us">Your email:</div>
+              <v-text-field
+                name="clientMail"
+                v-model="clientMail"
+                autocomplete="off1"
+                :rules="[rules.required, rules.email, rules.max100]"
+                color="#F79D20"
+                required
+                outlined
+              />
+
+              <!-- Mail Text -->
+              <div class="label-contact-us">Tell us what you need:</div>
+              <v-textarea
+                name="mailBody"
+                v-model="mailBody"
+                autocomplete="off1"
+                :rules="[rules.required, rules.max255]"
+                color="#F79D20"
+                required
+                outlined
+              />
+
+              <v-btn
+                type="submit"
+                class="text-capitalize text--white"
+                color="#ED8023"
+                width="130"
+                style="border-radius: 20px; height: 35px"
+              >
+                Send
+              </v-btn>
+            </v-form>
+          </v-card>
+        </v-col>
+        <v-col cols="2"> </v-col>
       </v-row>
     </section>
   </section>
@@ -174,4 +188,10 @@ export default class Home extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped>
+.contact-us-section {
+  background-size: cover;
+  height: 101vh;
+  width: 100%;
+}
+</style>
