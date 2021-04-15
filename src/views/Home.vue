@@ -7,8 +7,8 @@
           'url(' + require('@/assets/contact-background.webp') + ')',
       }"
     >
-      <v-row justify="center" class="py-0">
-        <v-col cols="4">
+      <v-row justify="center" class="py-0 fill-height">
+        <v-col cols="4" align-self="start">
           <v-img
             src="@/assets/logo.png"
             contain
@@ -17,9 +17,9 @@
             class="mt-10"
           />
         </v-col>
-        <v-col cols="6" class="py-0">
+        <v-col cols="4" align-self="center">
           <v-card class="pa-10 mt-10">
-            <div class="text-h1 yellow--text text--darken-3">Get in Touch!</div>
+            <div class="text-h2 yellow--text text--darken-3">Get in Touch!</div>
             <v-spacer class="pt-5" />
             <v-form
               name="contact-us-form"
@@ -41,8 +41,8 @@
                 autocomplete="off1"
                 :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
                 color="#F79D20"
-                required
                 outlined
+                dense
               />
 
               <!-- Company Name -->
@@ -53,8 +53,8 @@
                 autocomplete="off1"
                 :rules="[rules.required, rules.max100]"
                 color="#F79D20"
-                required
                 outlined
+                dense
               />
 
               <!-- Client Email -->
@@ -65,8 +65,8 @@
                 autocomplete="off1"
                 :rules="[rules.required, rules.email, rules.max100]"
                 color="#F79D20"
-                required
                 outlined
+                dense
               />
 
               <!-- Mail Text -->
@@ -77,23 +77,23 @@
                 autocomplete="off1"
                 :rules="[rules.required, rules.max255]"
                 color="#F79D20"
-                required
                 outlined
+                dense
               />
 
               <v-btn
                 type="submit"
-                class="text-capitalize text--white"
+                class="text-capitalize"
                 color="#ED8023"
                 width="130"
-                style="border-radius: 20px; height: 35px"
+                style="border-radius: 20px; height: 35px; color: white"
               >
                 Send
               </v-btn>
             </v-form>
           </v-card>
         </v-col>
-        <v-col cols="2"> </v-col>
+        <v-col cols="4"> </v-col>
       </v-row>
     </section>
   </section>
