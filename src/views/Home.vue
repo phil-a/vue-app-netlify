@@ -8,17 +8,29 @@
       }"
     >
       <v-row justify="center" class="py-0 fill-height">
-        <v-col cols="4" align-self="start">
+        <v-col
+          sm="6"
+          md="4"
+          lg="4"
+          xl="4"
+          class="d-flex align-xs-end align-sm-end align-md-end align-lg-start align-xl-start"
+        >
           <v-img
             src="@/assets/logo.png"
-            contain
-            height="150"
-            width="350"
+            max-height="190"
+            max-width="350"
             class="mt-10"
           />
         </v-col>
-        <v-col cols="4" align-self="center">
-          <v-card class="pa-10 mt-10">
+        <v-col
+          xs="8"
+          sm="10"
+          md="10"
+          lg="4"
+          xl="4"
+          class="d-flex align-xs-start align-sm-start align-md-start align-lg-center align-xl-center"
+        >
+          <v-card class="pa-10" style="width: 100%">
             <div class="text-h2 yellow--text text--darken-3">Get in Touch!</div>
             <v-spacer class="pt-5" />
             <v-form
@@ -93,7 +105,7 @@
             </v-form>
           </v-card>
         </v-col>
-        <v-col cols="4"> </v-col>
+        <v-col cols="4" lg="4" xl="4" class="hidden-md-and-down"> </v-col>
       </v-row>
     </section>
   </section>
