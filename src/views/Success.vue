@@ -10,15 +10,19 @@
         xl="6"
         class="d-flex align-xs-end align-sm-end align-md-end align-lg-center align-xl-center"
       >
-        <!-- logo toucan -->
         <v-row justify="center">
-          <v-img src="@/assets/logo.png" class="mt-10 logo-size" />
-        </v-row>
+          <v-col>
+            <!-- logo toucan -->
+            <v-row justify="center">
+              <v-img src="@/assets/logo.png" class="mt-10 logo-size" />
+            </v-row>
 
-        <!-- spacer xl only -->
-        <v-spacer v-show="$vuetify.breakpoint.xl" style="padding: 300px" />
-        <!-- spacer lg only -->
-        <v-spacer v-show="$vuetify.breakpoint.lg" style="padding: 150px" />
+            <!-- spacer xl only -->
+            <v-spacer v-show="$vuetify.breakpoint.xl" style="padding: 200px" />
+            <!-- spacer lg only -->
+            <v-spacer v-show="$vuetify.breakpoint.lg" style="padding: 150px" />
+          </v-col>
+        </v-row>
       </v-col>
       <!-- right side -->
       <v-col
