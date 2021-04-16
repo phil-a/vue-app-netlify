@@ -90,6 +90,7 @@
                   class="text-capitalize form-button white--text"
                   color="#ED8023"
                   width="130"
+                  @click="goBack()"
                   depressed
                 >
                   Back
@@ -111,7 +112,11 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 @Component
-export default class Success extends Vue {}
+export default class Success extends Vue {
+  goBack() {
+    this.$router.push("/");
+  }
+}
 </script>
 
 <style scoped>
