@@ -40,17 +40,7 @@
             <!-- empty div -->
             <div style="height: 10px; width: 100%" class="hidden-sm-only"></div>
             <!-- form box -->
-            <div
-              style="
-                width: 100%;
-                background-color: white;
-                border: 2px solid #ed8023;
-                border-radius: 17px;
-                box-shadow: 20px 20px #ed8023;
-                padding: 60px 60px 40px 60px;
-                height: min-content;
-              "
-            >
+            <div class="form-box">
               <div class="text-h2 yellow--text text--darken-3 text-center">
                 Get in Touch!
               </div>
@@ -118,16 +108,10 @@
                 <v-row justify="center">
                   <v-btn
                     type="submit"
-                    class="text-capitalize"
+                    class="text-capitalize form-button white--text"
                     color="#ED8023"
                     width="130"
                     depressed
-                    style="
-                      border-radius: 10px;
-                      border: 2px solid #fda63f;
-                      height: 35px;
-                      color: white;
-                    "
                   >
                     Send
                   </v-btn>
@@ -262,6 +246,21 @@ export default class Home extends Vue {
   border-color: #d8d8d8;
   border-radius: 10px;
 }
+.form-box {
+  width: 100%;
+  background-color: white;
+  border: 2px solid #ed8023;
+  border-radius: 17px;
+  box-shadow: 20px 20px #ed8023;
+  padding: 60px 60px 40px 60px;
+  height: min-content;
+}
+.form-button {
+  border-radius: 10px;
+  border: 2px solid #fda63f;
+  height: 35px;
+}
+
 @media (max-width: 599px) {
   .section-background {
     background-color: #ed8023;
