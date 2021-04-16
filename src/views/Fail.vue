@@ -34,7 +34,7 @@
             class="d-flex align-content-sm-start align-content-md-start align-content-lg-center align-content-xl-center flex-wrap"
           >
             <!-- icon -->
-            <v-row justify="center" class="hidden-xs-only">
+            <v-row justify="center" class="hidden-sm-and-down">
               <v-img
                 src="@/assets/icon-FAIL.webp"
                 max-height="150"
