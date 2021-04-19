@@ -246,6 +246,13 @@ export default class Home extends Vue {
   border-color: #d8d8d8;
   border-radius: 10px;
 }
+.section-background {
+  background-image: url("../assets/contact-background.webp");
+  background-size: cover;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+}
 .form-box {
   width: 100%;
   background-color: white;
@@ -262,25 +269,12 @@ export default class Home extends Vue {
 }
 
 @media (max-width: 599px) {
-  .section-background {
-    background-color: #ed8023;
-    background-size: cover;
-    height: 120vh;
-    width: 100%;
-  }
   .logo-size {
     max-height: 90px;
     max-width: 150px;
   }
 }
 @media (min-width: 600px) {
-  .section-background {
-    background-image: url("../assets/contact-background.webp");
-    background-size: cover;
-    height: 102vh;
-    width: 100%;
-  }
-
   .logo-size {
     max-height: 390px;
     max-width: 500px;
