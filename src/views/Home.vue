@@ -1,7 +1,7 @@
 <template>
   <section class="section-background">
     <v-row justify="center" class="pa-5 fill-height">
-      <!-- logo toucan -->
+      <!-- logo sams -->
       <v-col
         xs="10"
         sm="10"
@@ -12,7 +12,7 @@
       >
         <v-row justify="center">
           <v-col>
-            <!-- logo toucan -->
+            <!-- logo sam's -->
             <v-row justify="center">
               <v-img src="@/assets/logo.png" class="mt-10 logo-size" />
             </v-row>
@@ -41,7 +41,7 @@
             <div style="height: 10px; width: 100%" class="hidden-sm-only"></div>
             <!-- form box -->
             <div class="form-box">
-              <div class="text-h2 red--text text--darken-3 text-center">
+              <div class="text-h4 blue--text text--darken-3 text-center">
                 Event Submission
               </div>
               <v-spacer class="pt-5" />
@@ -61,10 +61,10 @@
                 <v-text-field
                   name="programName"
                   v-model="programName"
-                  label="Your Program Name:"
+                  label="Your Program Name"
                   autocomplete="off1"
                   :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
-                  color="#730000"
+                  color="#0067A0"
                   outlined
                   dense
                 />
@@ -73,10 +73,10 @@
                 <v-text-field
                   name="requesterCompanyName"
                   v-model="requesterCompanyName"
-                  label="Your Company Name:"
+                  label="Your Company Name"
                   autocomplete="off1"
                   :rules="[rules.required, rules.max100]"
-                  color="#730000"
+                  color="#0067A0"
                   outlined
                   dense
                 />
@@ -85,10 +85,10 @@
                 <v-text-field
                   name="requesterName"
                   v-model="requesterName"
-                  label="Your Name:"
+                  label="Your Name"
                   autocomplete="off1"
                   :rules="[rules.required, rules.max100]"
-                  color="#730000"
+                  color="#0067A0"
                   outlined
                   dense
                 />
@@ -97,33 +97,23 @@
                 <v-text-field
                   name="requesterEmail"
                   v-model="requesterEmail"
-                  label="Your Email:"
+                  label="Your Email"
                   autocomplete="off1"
                   :rules="[rules.required, rules.email, rules.max100]"
-                  color="#730000"
+                  color="#0067A0"
                   outlined
                   dense
                 />
 
-                <!-- Mail Text -->
-                <v-textarea
-                  name="eventOverview"
-                  v-model="eventOverview"
-                  label="Tell us what you need:"
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max255]"
-                  color="#730000"
-                  outlined
-                  dense
-                />
-
-                
+                <!-- Event types -->
                 <v-select
                   :items="eventTypeSelections"
                   label="Event Type"
+                  hint="Please select an event type"
                 >
                 </v-select>
 
+              <!-- Start date -->
               <v-menu
                       ref="menuStartDate"
                       v-model="menuStartDate"
@@ -138,6 +128,7 @@
                           v-model="eventStartDate"
                           label="Event Start Date"
                           prepend-icon="mdi-calendar"
+                          hint="Note: Should be at least 6 weeks from submission date"
                           readonly
                           v-bind="attrs"
                           v-on="on"
@@ -166,6 +157,7 @@
                       </v-date-picker>
                     </v-menu>
 
+                  <!-- End Date -->
                   <v-menu
                       ref="menuEndDate"
                       v-model="menuEndDate"
@@ -208,16 +200,144 @@
                       </v-date-picker>
                     </v-menu>
 
-                        <label>
-            <span>Add file:</span>
-            <input name="file" type="file"/>
-          </label>
+                    <!-- Start time -->
+                    <v-menu
+                      ref="menu"
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="eventTime"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="eventTime"
+                          label="Event Time"
+                          prepend-icon="mdi-clock-time-four-outline"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        v-if="menu2"
+                        v-model="eventTime"
+                        full-width
+                        @click:minute="$refs.menu.save(eventTime)"
+                      ></v-time-picker>
+                    </v-menu>
+
+                    <!-- Target Markets -->
+                    <v-text-field
+                      name="targetMarkets"
+                      v-model="targetMarkets"
+                      label="Target Markets"
+                      autocomplete="off1"
+                      :rules="[rules.required, rules.max100]"
+                      color="#0067A0"
+                      outlined
+                      dense
+                    />
+
+                    <!-- Store Count -->
+                    <label>
+                    <span>Store Count</span>
+                    </label>
+
+                  <v-slider
+                    v-model="storeCount"
+                    label="Number of Stores"
+                    thumb-color="#0067A0"
+                    thumb-label="always"
+                  ></v-slider>
+
+                <!-- Event Overview -->
+                <v-textarea
+                  name="eventOverview"
+                  v-model="eventOverview"
+                  label="Event Overview"
+                  hint="Please provide a short description of your event."
+                  persistent-hint
+                  autocomplete="off1"
+                  :rules="[rules.required, rules.max255]"
+                  color="#0067A0"
+                  outlined
+                  dense
+                />
+
+                <!-- Target Category -->
+                <v-textarea
+                  name="targetCategory"
+                  v-model="targetCategory"
+                  label="Target Category"
+                  hint="Which categories are you targetting for supplier integration?"
+                  persistent-hint
+                  autocomplete="off1"
+                  :rules="[rules.required, rules.max255]"
+                  color="#0067A0"
+                  outlined
+                  dense
+                />
+
+                <!-- Target Category -->
+                <v-textarea
+                  name="targetSuppliers"
+                  v-model="targetSuppliers"
+                  label="Target Suppliers"
+                  hint="Please provide details if you have specific suppliers confirmed."
+                  persistent-hint
+                  autocomplete="off1"
+                  :rules="[rules.required, rules.max255]"
+                  color="#0067A0"
+                  outlined
+                  dense
+                />
+
+                <!-- Additional Marketing -->
+                <v-textarea
+                  name="additionalMarketing"
+                  v-model="additionalMarketing"
+                  label="Additional Marketing"
+                  hint="Please provide marketing/promotional tactics: website, social promotion, influencers, etc."
+                  persistent-hint
+                  autocomplete="off1"
+                  :rules="[rules.required, rules.max255]"
+                  color="#0067A0"
+                  outlined
+                  dense
+                />
+
+              <!-- Confirm approval -->
+              <v-container fluid>
+                <v-checkbox v-model="checkbox">
+                  <template v-slot:label>
+                    <div>
+                      I confirm that I have <strong>approval from a business owner</strong> to execute this event. This may include a merchant or services leader.
+                    </div>
+                  </template>
+                </v-checkbox>
+              </v-container>
+
+
+                <!-- file upload -->
+                <label>
+                  <span>Add file:</span>
+                    <v-file-input
+                    show-size
+                    counter
+                    multiple
+                    label="File input"
+                  ></v-file-input>
+                </label>
 
                 <v-row justify="center">
                   <v-btn
                     type="submit"
                     class="text-capitalize form-button white--text"
-                    color="#730000"
+                    color="#0067A0"
                     width="130"
                     depressed
                   >
@@ -272,6 +392,9 @@ export default class Home extends Vue {
       eventEndDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menuStartDate: false,
       menuEndDate: false,
+      eventTime: null,
+      menu2: false,
+
      }
   }
 
@@ -281,9 +404,18 @@ export default class Home extends Vue {
   requesterCompanyName = "";
   requesterName = "";
   requesterEmail = "";
+  menuStartDate = "";
+  menuEndDate = "";
   eventStartDate = "";
   eventEndDate = "";
   eventOverview = "";
+  targetCategory = "";
+  targetSuppliers = "";
+  additionalMarketing = "";
+  eventTime = "";
+  menu2 = "";
+  storeCount = "";
+  targetMarkets = "";
   file = null;
 
   eventTypeSelections=['Parking Lot', 'In Store', 'Sidewalk', 'Food Truck']
@@ -314,6 +446,10 @@ export default class Home extends Vue {
         eventStartDate: this.eventStartDate,
         eventEndDate: this.eventEndDate,
         eventOverview: this.eventOverview,
+        targetMarkets: this.targetMarkets,
+        targetCategory: this.targetCategory,
+        targetSuppliers: this.targetSuppliers,
+        additionalMarketing: this.additionalMarketing
       };
 
       const axiosConfig: AxiosRequestConfig = {
@@ -365,13 +501,17 @@ export default class Home extends Vue {
     this.requesterName = "";
     this.requesterEmail = "";
     this.eventOverview = "";
+    this.targetMarkets = "";
+    this.targetCategory = "";
+    this.targetSuppliers = "";
+    this.additionalMarketing = "";
   }
 }
 </script>
 
 <style scoped type="scss">
 ::v-deep .v-text-field--outlined .v-label {
-  color: #730000;
+  color: #0067A0;
 }
 .v-text-field--outlined >>> fieldset {
   border-color: #d8d8d8;
@@ -387,15 +527,15 @@ export default class Home extends Vue {
 .form-box {
   width: 100%;
   background-color: white;
-  border: 2px solid #730000;
+  border: 3px solid #0067A0;
   border-radius: 17px;
-  box-shadow: 20px 20px #730000;
+  box-shadow: 20px 20px #0067A0;
   padding: 60px 60px 40px 60px;
   height: min-content;
 }
 .form-button {
   border-radius: 10px;
-  border: 2px solid #730000;
+  border: 2px solid #0067A0;
   height: 35px;
 }
 
