@@ -41,8 +41,8 @@
             <div style="height: 10px; width: 100%" class="hidden-sm-only"></div>
             <!-- form box -->
             <div class="form-box">
-              <div class="text-h2 yellow--text text--darken-3 text-center">
-                Get in Touch!
+              <div class="text-h2 red--text text--darken-3 text-center">
+                Event Submission
               </div>
               <v-spacer class="pt-5" />
               <v-form
@@ -57,59 +57,167 @@
                 <!-- hidden input for netlify -->
                 <input type="hidden" name="form-name" value="contact-us-form" />
 
-                <!-- Client Full Name -->
+                <!-- Program Name -->
                 <v-text-field
-                  name="fullName"
-                  v-model="fullName"
-                  label="Your Full Name:"
+                  name="programName"
+                  v-model="programName"
+                  label="Your Program Name:"
                   autocomplete="off1"
                   :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
-                  color="#F79D20"
+                  color="#730000"
                   outlined
                   dense
                 />
 
                 <!-- Company Name -->
                 <v-text-field
-                  name="companyName"
-                  v-model="companyName"
-                  label="Your Company:"
+                  name="requesterCompanyName"
+                  v-model="requesterCompanyName"
+                  label="Your Company Name:"
                   autocomplete="off1"
                   :rules="[rules.required, rules.max100]"
-                  color="#F79D20"
+                  color="#730000"
+                  outlined
+                  dense
+                />
+
+                <!-- Name -->
+                <v-text-field
+                  name="requesterName"
+                  v-model="requesterName"
+                  label="Your Name:"
+                  autocomplete="off1"
+                  :rules="[rules.required, rules.max100]"
+                  color="#730000"
                   outlined
                   dense
                 />
 
                 <!-- Client Email -->
                 <v-text-field
-                  name="clientMail"
-                  v-model="clientMail"
-                  label="Your email:"
+                  name="requesterEmail"
+                  v-model="requesterEmail"
+                  label="Your Email:"
                   autocomplete="off1"
                   :rules="[rules.required, rules.email, rules.max100]"
-                  color="#F79D20"
+                  color="#730000"
                   outlined
                   dense
                 />
 
                 <!-- Mail Text -->
                 <v-textarea
-                  name="mailBody"
-                  v-model="mailBody"
+                  name="eventOverview"
+                  v-model="eventOverview"
                   label="Tell us what you need:"
                   autocomplete="off1"
                   :rules="[rules.required, rules.max255]"
-                  color="#F79D20"
+                  color="#730000"
                   outlined
                   dense
                 />
+
+                
+                <v-select
+                  :items="eventTypeSelections"
+                  label="Event Type"
+                >
+                </v-select>
+
+              <v-menu
+                      ref="menuStartDate"
+                      v-model="menuStartDate"
+                      :close-on-content-click="true"
+                      :return-value.sync="menuStartDate"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="eventStartDate"
+                          label="Event Start Date"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="eventStartDate"
+                        no-title
+                        scrollable
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="menuStartDate = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.menuStartDate.save(menuStartDate)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-menu>
+
+                  <v-menu
+                      ref="menuEndDate"
+                      v-model="menuEndDate"
+                      :close-on-content-click="true"
+                      :return-value.sync="menuEndDate"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="eventEndDate"
+                          label="Event End Date"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="eventEndDate"
+                        no-title
+                        scrollable
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="menuEndDate = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.menuEndDate.save(menuEndDate)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-menu>
+
+                        <label>
+            <span>Add file:</span>
+            <input name="file" type="file"/>
+          </label>
 
                 <v-row justify="center">
                   <v-btn
                     type="submit"
                     class="text-capitalize form-button white--text"
-                    color="#ED8023"
+                    color="#730000"
                     width="130"
                     depressed
                   >
@@ -157,12 +265,29 @@ import { Rules } from "@/assets/rules";
 
 @Component
 export default class Home extends Vue {
+
+  data = () => {
+    return {
+      eventStartDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      eventEndDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menuStartDate: false,
+      menuEndDate: false,
+     }
+  }
+
   valid = true;
   lazy = false;
-  fullName = "";
-  companyName = "";
-  clientMail = "";
-  mailBody = "";
+  programName = "";
+  requesterCompanyName = "";
+  requesterName = "";
+  requesterEmail = "";
+  eventStartDate = "";
+  eventEndDate = "";
+  eventOverview = "";
+  file = null;
+
+  eventTypeSelections=['Parking Lot', 'In Store', 'Sidewalk', 'Food Truck']
+  dateFormatted = "";
   // rules
   rules = {
     required: Rules.required,
@@ -173,6 +298,8 @@ export default class Home extends Vue {
     email: Rules.email,
   };
 
+
+
   /**
    * Submit form for Netlify
    */
@@ -180,10 +307,13 @@ export default class Home extends Vue {
     // if form is valid
     if (this.validateForm()) {
       let client = {
-        fullName: this.fullName,
-        companyName: this.companyName,
-        clientMail: this.clientMail,
-        mailBody: this.mailBody,
+        programName: this.programName,
+        requesterCompanyName: this.requesterCompanyName,
+        requesterName: this.requesterName,
+        requesterEmail: this.requesterEmail,
+        eventStartDate: this.eventStartDate,
+        eventEndDate: this.eventEndDate,
+        eventOverview: this.eventOverview,
       };
 
       const axiosConfig: AxiosRequestConfig = {
@@ -230,24 +360,25 @@ export default class Home extends Vue {
     (this.$refs.form as Vue & {
       reset: () => boolean;
     }).reset();
-    this.fullName = "";
-    this.companyName = "";
-    this.clientMail = "";
-    this.mailBody = "";
+    this.programName = "";
+    this.requesterCompanyName = "";
+    this.requesterName = "";
+    this.requesterEmail = "";
+    this.eventOverview = "";
   }
 }
 </script>
 
 <style scoped type="scss">
 ::v-deep .v-text-field--outlined .v-label {
-  color: #f9a825;
+  color: #730000;
 }
 .v-text-field--outlined >>> fieldset {
   border-color: #d8d8d8;
   border-radius: 10px;
 }
 .section-background {
-  background-image: url("../assets/contact-background.webp");
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   min-height: 100%;
   height: auto;
@@ -256,15 +387,15 @@ export default class Home extends Vue {
 .form-box {
   width: 100%;
   background-color: white;
-  border: 2px solid #ed8023;
+  border: 2px solid #730000;
   border-radius: 17px;
-  box-shadow: 20px 20px #ed8023;
+  box-shadow: 20px 20px #730000;
   padding: 60px 60px 40px 60px;
   height: min-content;
 }
 .form-button {
   border-radius: 10px;
-  border: 2px solid #fda63f;
+  border: 2px solid #730000;
   height: 35px;
 }
 
