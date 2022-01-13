@@ -76,6 +76,7 @@
                     color="#0067A0"
                     outlined
                     dense
+                    class="mb-8"
                   />
 
                   <!-- Event Footprint -->
@@ -218,6 +219,7 @@
                     offset-y
                     max-width="290px"
                     min-width="290px"
+                    class="mb-8"
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
@@ -268,15 +270,17 @@
 
                   <!-- Activation Goal -->
                   <v-select
+                    v-model="activationGoal"
                     :items="activationGoalSelections"
                     label="Activation Goal"
                     hint="Please select an activation goal"
-                    class="mt-2"
+                    class="mt-2 mb-4"
                   >
                   </v-select>
 
                   <!-- Sales Lift Product -->
                   <v-text-field
+                    v-if="activationGoal == 'Sales Lift'"
                     name="salesLiftProduct"
                     v-model="salesLiftProduct"
                     label="Sales Lift Product(s)"
@@ -287,6 +291,7 @@
                     color="#0067A0"
                     outlined
                     dense
+                    class="mb-8"
                   />
 
                   <!-- file upload -->
@@ -351,10 +356,33 @@
                   >
                   </v-select>
 
+                  <!-- Suppliers -->
+
+                  <v-textarea
+                    name="supplierNames"
+                    v-model="supplierNames"
+                    label="Participating Suppliers"
+                    hint="List all suppliers that will be participating"
+                    persistent-hint
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max255]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Member Communication -->
+                  <v-select
+                    :items="memberCommunicationSelections"
+                    label="Member Communication Plan"
+                    hint="Please select member communication plan"
+                  >
+                  </v-select>
+
                   <!-- Event types -->
                   <v-select
                     :items="eventTypeSelections"
-                    label="Event Type"
+                    label="Location of the event"
                     hint="Please select location of the event"
                   >
                   </v-select>
@@ -451,6 +479,7 @@
                   <!-- Sampling Food UPC -->
                   <v-text-field
                     name="samplingFoodUPC"
+                    v-if="samplingFoodRadios == 'yes'"
                     v-model="samplingFoodUPC"
                     label="Sampling UPCs"
                     autocomplete="off1"
@@ -529,9 +558,12 @@
                   </v-container>
 
                   <!-- Sweepstakes Details -->
+          
                   <v-text-field
                     name="sweepstakesDetails"
+                    class="mb-8"
                     v-model="sweepstakesDetails"
+                    v-if="sweepstakesRadios == 'yes'"
                     label="Sweepstakes Details"
                     autocomplete="off1"
                     hint="If answered 'yes' above, please include details"
@@ -557,7 +589,7 @@
                   />
 
                   <!-- Confirm approval -->
-                  <v-container fluid>
+                  <!-- <v-container fluid>
                     <v-checkbox v-model="approvalCheckbox">
                       <template v-slot:label>
                         <div>
@@ -565,7 +597,7 @@
                         </div>
                       </template>
                     </v-checkbox>
-                  </v-container>
+                  </v-container> -->
                 
                 </v-card>
                 
@@ -614,7 +646,8 @@ export default class Home extends Vue {
       samplingAdultBeveragesRadios: false,
       sweepstakesRadios: false,
       samsMediaRadios: false,
-      approvalCheckbox: false
+      approvalCheckbox: false,
+      activationGoal: "",
      }
   }
 
@@ -631,6 +664,7 @@ export default class Home extends Vue {
   requesterName = "";
   requesterEmail = "";
   requesterPhone = "";
+  supplierNames = "";
   menuStartDate = "";
   menuEndDate = "";
   eventStartDate = "";
@@ -650,10 +684,12 @@ export default class Home extends Vue {
   storeCount = "";
   hoursPerClub = "";
   file = null;
+  activationGoal = "";
 
   eventTypeSelections=['Parking Lot', 'In Club', 'Sidewalk']
   activationGoalSelections=['Brand Awareness', 'Driving an Experience', 'Sales Lift']
   contactTypeSelections=['Supplier Contact', 'Execution Agency']
+  memberCommunicationSelections=['Signage', 'Email', 'Local Social', 'Brand Social Channels']
   dateFormatted = "";
   // rules
   rules = {
@@ -678,6 +714,7 @@ export default class Home extends Vue {
         requesterName: this.requesterName,
         requesterEmail: this.requesterEmail,
         requesterPhone: this.requesterPhone,
+        supplierNames: this.supplierNames,
         eventStartDate: this.eventStartDate,
         eventEndDate: this.eventEndDate,
         eventDescription: this.eventDescription,
