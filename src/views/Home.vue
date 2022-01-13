@@ -59,11 +59,6 @@
               
                 <h3 class="h3 mt-8 mb-4">Event Information</h3>
 
-                <v-card
-                  :elevation="1"
-                  class="px-12 py-8"
-                >
-
                   <!-- Event Description -->
                   <v-textarea
                     name="eventDescription"
@@ -240,33 +235,36 @@
                   </v-menu>
 
                   <!-- Activation Hours -->
-                  <label>
-                    <span>Activation Hours</span>
-                  </label>
-                  <v-slider
-                    v-model="hoursPerClub"
-                    label="Hours per Club"
-                    thumb-color="#0067A0"
-                    thumb-label="always"
-                    hint="asdf"
-                    min="1"
-                    max="8"
-                    step="1"
-                    ticks="always"
-                    tick-size="4"
-                  ></v-slider>
+                  <div class="mt-8">
+                    <label>
+                      <span>Activation Hours</span>
+                    </label>
+                    <v-slider
+                      v-model="hoursPerClub"
+                      label="Hours per Club"
+                      thumb-color="#0067A0"
+                      thumb-label="always"
+                      min="1"
+                      max="8"
+                      step="1"
+                      ticks="always"
+                      tick-size="4"
+                    ></v-slider>
+                  </div>
 
                   <!-- Club Count -->
-                  <label>
-                    <span>Club Count</span>
-                  </label>
+                  <div>
+                    <label>
+                      <span>Club Count</span>
+                    </label>
 
-                  <v-slider
-                    v-model="storeCount"
-                    label="Number of Stores"
-                    thumb-color="#0067A0"
-                    thumb-label="always"
-                  ></v-slider>
+                    <v-slider
+                      v-model="storeCount"
+                      label="Number of Clubs"
+                      thumb-color="#0067A0"
+                      thumb-label="always"
+                    ></v-slider>
+                  </div>
 
                   <!-- Activation Goal -->
                   <v-select
@@ -304,13 +302,9 @@
                     ></v-file-input>
                   </label>
 
-                </v-card>
+                <v-divider class="my-16"></v-divider>
 
                 <h3 class="h3 mt-8 mb-4">Contact Information</h3>
-                <v-card
-                  :elevation="1"
-                  class="px-12 py-8"
-                >
 
                   <!-- Name -->
                   <v-text-field
@@ -387,14 +381,10 @@
                   >
                   </v-select>
 
-                </v-card>
+
+                <v-divider class="my-16"></v-divider>
 
                 <h3 class="h3 mt-8 mb-4">Additional Details</h3>
-
-                <v-card
-                  :elevation="1"
-                  class="px-12 py-8"
-                >
 
                   <!-- COVID Protocols -->
                   <v-textarea
@@ -598,9 +588,7 @@
                       </template>
                     </v-checkbox>
                   </v-container> -->
-                
-                </v-card>
-                
+                                
                 <v-row justify="center">
                   <v-btn
                     type="submit"
