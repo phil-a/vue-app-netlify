@@ -12,7 +12,7 @@
       >
         <v-row justify="center">
           <v-col>
-            <!-- logo toucan -->
+            <!-- sam's -->
             <v-row justify="center">
               <v-img src="@/assets/logo.png" class="mt-10 logo-size" />
             </v-row>

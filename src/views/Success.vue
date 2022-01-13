@@ -12,7 +12,7 @@
       >
         <v-row justify="center">
           <v-col>
-            <!-- logo toucan -->
+            <!-- logo sam's -->
             <v-row justify="center">
               <v-img src="@/assets/logo.png" class="mt-10 logo-size" />
             </v-row>
@@ -40,7 +40,7 @@
             <!-- icon -->
             <v-row justify="center" class="hidden-sm-and-down">
               <v-img
-                src="@/assets/icon-OK.webp"
+                src="@/assets/icon-OK.png"
                 max-height="150"
                 max-width="150"
                 class="mb-16"
@@ -51,14 +51,14 @@
             <div class="form-box">
               <!-- horizontal lines -->
               <v-row justify="end">
-                <hr style="width: 100px; border: 2px solid #ed8023" />
+                <hr style="width: 100px; border: 2px solid #0067A0" />
               </v-row>
               <v-spacer class="mt-7" />
               <v-row justify="end">
                 <hr
                   style="
                     width: 200px;
-                    border: 2px solid #ed8023;
+                    border: 2px solid #0067A0;
                     margin-right: 30px;
                   "
                 />
@@ -68,7 +68,7 @@
               <!-- form icon -->
               <v-row justify="center">
                 <v-img
-                  src="@/assets/icon-FORM.webp"
+                  src="@/assets/icon-FORM.png"
                   max-height="100"
                   max-width="70"
                   class=""
@@ -92,7 +92,7 @@
               <v-row justify="center">
                 <v-btn
                   class="text-capitalize form-button white--text"
-                  color="#ED8023"
+                  color="#0067A0"
                   width="130"
                   @click="goBack()"
                   depressed
@@ -125,7 +125,7 @@ export default class Success extends Vue {
 
 <style scoped>
 .section-background {
-  background-image: url("../assets/contact-background.webp");
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   min-height: 100%;
   height: auto;
@@ -135,9 +135,9 @@ export default class Success extends Vue {
 .form-box {
   width: 100%;
   background-color: white;
-  border: 2px solid #ed8023;
+  border: 2px solid #0067A0;
   border-radius: 17px;
-  box-shadow: 20px 20px #ed8023;
+  box-shadow: 20px 20px #0067A0;
   padding: 60px 60px 40px 60px;
   height: min-content;
 }

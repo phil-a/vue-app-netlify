@@ -8,7 +8,7 @@
         md="6"
         lg="6"
         xl="6"
-        class="d-flex align-xs-end align-sm-end align-md-end align-lg-center align-xl-center"
+        class="d-flex align-xs-start align-sm-start align-md-start"
       >
         <v-row justify="center">
           <v-col>
@@ -56,106 +56,83 @@
               >
                 <!-- hidden input for netlify -->
                 <input type="hidden" name="form-name" value="contact-us-form" />
+              
+                <h3 class="h3 mt-8 mb-4">Event Information</h3>
 
-                <!-- Program Name -->
-                <v-text-field
-                  name="programName"
-                  v-model="programName"
-                  label="Your Program Name"
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
-
-                <!-- Company Name -->
-                <v-text-field
-                  name="requesterCompanyName"
-                  v-model="requesterCompanyName"
-                  label="Your Company Name"
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max100]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
-
-                <!-- Name -->
-                <v-text-field
-                  name="requesterName"
-                  v-model="requesterName"
-                  label="Your Name"
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max100]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
-
-                <!-- Client Email -->
-                <v-text-field
-                  name="requesterEmail"
-                  v-model="requesterEmail"
-                  label="Your Email"
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.email, rules.max100]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
-
-                <!-- Event types -->
-                <v-select
-                  :items="eventTypeSelections"
-                  label="Event Type"
-                  hint="Please select an event type"
+                <v-card
+                  :elevation="1"
+                  class="px-12 py-8"
                 >
-                </v-select>
 
-              <!-- Start date -->
-              <v-menu
-                      ref="menuStartDate"
-                      v-model="menuStartDate"
-                      :close-on-content-click="true"
-                      :return-value.sync="menuStartDate"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="eventStartDate"
-                          label="Event Start Date"
-                          prepend-icon="mdi-calendar"
-                          hint="Note: Should be at least 6 weeks from submission date"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
+                  <!-- Event Description -->
+                  <v-textarea
+                    name="eventDescription"
+                    v-model="eventDescription"
+                    label="Event Description"
+                    hint="Please provide a short description of your event."
+                    persistent-hint
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max255]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Event Footprint -->
+                  <v-text-field
+                    name="eventFootprint"
+                    v-model="eventFootprint"
+                    label="Event Footprint"
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Start date -->
+                  <v-menu
+                    ref="menuStartDate"
+                    v-model="menuStartDate"
+                    :close-on-content-click="true"
+                    :return-value.sync="menuStartDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
                         v-model="eventStartDate"
-                        no-title
-                        scrollable
+                        label="Event Start Date"
+                        prepend-icon="mdi-calendar"
+                        hint="Note: Should be at least 6 weeks from submission date"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="eventStartDate"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menuStartDate = false"
                       >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="menuStartDate = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="$refs.menuStartDate.save(menuStartDate)"
-                        >
-                          OK
-                        </v-btn>
-                      </v-date-picker>
-                    </v-menu>
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menuStartDate.save(menuStartDate)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
 
                   <!-- End Date -->
                   <v-menu
@@ -198,54 +175,89 @@
                           OK
                         </v-btn>
                       </v-date-picker>
-                    </v-menu>
+                  </v-menu>
 
-                    <!-- Start time -->
-                    <v-menu
-                      ref="menu"
-                      v-model="menu2"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="eventTime"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="eventTime"
-                          label="Event Time"
-                          prepend-icon="mdi-clock-time-four-outline"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-time-picker
-                        v-if="menu2"
-                        v-model="eventTime"
-                        full-width
-                        @click:minute="$refs.menu.save(eventTime)"
-                      ></v-time-picker>
-                    </v-menu>
+                  <!-- Start time -->
+                  <v-menu
+                    ref="menu"
+                    v-model="eventStartMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="eventStartTime"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="eventStartTime"
+                        label="Event Start Time"
+                        prepend-icon="mdi-clock-time-four-outline"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-time-picker
+                      v-if="eventStartMenu"
+                      v-model="eventStartTime"
+                      full-width
+                      @click:minute="$refs.menu.save(eventStartTime)"
+                    ></v-time-picker>
+                  </v-menu>
 
-                    <!-- Target Markets -->
-                    <v-text-field
-                      name="targetMarkets"
-                      v-model="targetMarkets"
-                      label="Target Markets"
-                      autocomplete="off1"
-                      :rules="[rules.required, rules.max100]"
-                      color="#0067A0"
-                      outlined
-                      dense
-                    />
+                  <!-- End time -->
+                  <v-menu
+                    ref="menu2"
+                    v-model="eventEndMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="eventEndTime"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="eventEndTime"
+                        label="Event End Time"
+                        prepend-icon="mdi-clock-time-four-outline"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-time-picker
+                      v-if="eventEndMenu"
+                      v-model="eventEndTime"
+                      full-width
+                      @click:minute="$refs.menu2.save(eventEndTime)"
+                    ></v-time-picker>
+                  </v-menu>
 
-                    <!-- Store Count -->
-                    <label>
-                    <span>Store Count</span>
-                    </label>
+                  <!-- Activation Hours -->
+                  <label>
+                    <span>Activation Hours</span>
+                  </label>
+                  <v-slider
+                    v-model="hoursPerClub"
+                    label="Hours per Club"
+                    thumb-color="#0067A0"
+                    thumb-label="always"
+                    hint="asdf"
+                    min="1"
+                    max="8"
+                    step="1"
+                    ticks="always"
+                    tick-size="4"
+                  ></v-slider>
+
+                  <!-- Club Count -->
+                  <label>
+                    <span>Club Count</span>
+                  </label>
 
                   <v-slider
                     v-model="storeCount"
@@ -254,120 +266,322 @@
                     thumb-label="always"
                   ></v-slider>
 
-                <!-- Event Overview -->
-                <v-textarea
-                  name="eventOverview"
-                  v-model="eventOverview"
-                  label="Event Overview"
-                  hint="Please provide a short description of your event."
-                  persistent-hint
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max255]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
+                  <!-- Activation Goal -->
+                  <v-select
+                    :items="activationGoalSelections"
+                    label="Activation Goal"
+                    hint="Please select an activation goal"
+                    class="mt-2"
+                  >
+                  </v-select>
 
-                <!-- Target Category -->
-                <v-textarea
-                  name="targetCategory"
-                  v-model="targetCategory"
-                  label="Target Category"
-                  hint="Which categories are you targetting for supplier integration?"
-                  persistent-hint
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max255]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
+                  <!-- Sales Lift Product -->
+                  <v-text-field
+                    name="salesLiftProduct"
+                    v-model="salesLiftProduct"
+                    label="Sales Lift Product(s)"
+                    hint="If you selected 'Sales Lift' above, please list the product(s) below"
+                    persistent-hint
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
 
-                <!-- Target Category -->
-                <v-textarea
-                  name="targetSuppliers"
-                  v-model="targetSuppliers"
-                  label="Target Suppliers"
-                  hint="Please provide details if you have specific suppliers confirmed."
-                  persistent-hint
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max255]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
+                  <!-- file upload -->
+                  <label>
+                    <span>Rendering to show reality:</span>
+                      <v-file-input
+                      show-size
+                      counter
+                      label="File input"
+                    ></v-file-input>
+                  </label>
 
-                <!-- Additional Marketing -->
-                <v-textarea
-                  name="additionalMarketing"
-                  v-model="additionalMarketing"
-                  label="Additional Marketing"
-                  hint="Please provide marketing/promotional tactics: website, social promotion, influencers, etc."
-                  persistent-hint
-                  autocomplete="off1"
-                  :rules="[rules.required, rules.max255]"
-                  color="#0067A0"
-                  outlined
-                  dense
-                />
+                </v-card>
 
-              <!-- Confirm approval -->
-              <v-container fluid>
-                <v-checkbox v-model="checkbox">
-                  <template v-slot:label>
-                    <div>
-                      I confirm that I have <strong>approval from a business owner</strong> to execute this event. This may include a merchant or services leader.
-                    </div>
-                  </template>
-                </v-checkbox>
-              </v-container>
+                <h3 class="h3 mt-8 mb-4">Contact Information</h3>
+                <v-card
+                  :elevation="1"
+                  class="px-12 py-8"
+                >
 
+                  <!-- Name -->
+                  <v-text-field
+                    name="requesterName"
+                    v-model="requesterName"
+                    label="Your Name"
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
 
-                <!-- file upload -->
-                <label>
-                  <span>Add file:</span>
-                    <v-file-input
-                    show-size
-                    counter
-                    multiple
-                    label="File input"
-                  ></v-file-input>
-                </label>
+                  <!-- Client Email -->
+                  <v-text-field
+                    name="requesterEmail"
+                    v-model="requesterEmail"
+                    label="Your Email"
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.email, rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
 
+                  <!-- Client Phone -->
+                  <v-text-field
+                    name="requesterPhone"
+                    v-model="requesterPhone"
+                    label="Your Phone"
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Contact types -->
+                  <v-select
+                    :items="contactTypeSelections"
+                    label="Contact Type"
+                    hint="Please select an Contact type"
+                  >
+                  </v-select>
+
+                  <!-- Event types -->
+                  <v-select
+                    :items="eventTypeSelections"
+                    label="Event Type"
+                    hint="Please select location of the event"
+                  >
+                  </v-select>
+
+                </v-card>
+
+                <h3 class="h3 mt-8 mb-4">Additional Details</h3>
+
+                <v-card
+                  :elevation="1"
+                  class="px-12 py-8"
+                >
+
+                  <!-- COVID Protocols -->
+                  <v-textarea
+                    name="covidProtocol"
+                    v-model="covidProtocol"
+                    label="COVID Protocol"
+                    hint="Please provide a short description of COVID Protocols."
+                    persistent-hint
+                    autocomplete="off1"
+                    :rules="[rules.required, rules.max255]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Capturing Data -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="captureDataRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Are you capturing data from attendee/member? If yes, detailed screenshots of the entire process for collection will need to be included with the Privacy Review Template if event moves to Event Intake</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Photo Use -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="photoUseRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Are you planning on leveraging photos/video from the event outside of your organization? If yes, a Photo Release form will be shared or required photo release sign will need to be created if event moves to Event Intake</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Sampling Food -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="samplingFoodRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Are you going to be sampling food?</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Sampling Food UPC -->
+                  <v-text-field
+                    name="samplingFoodUPC"
+                    v-model="samplingFoodUPC"
+                    label="Sampling UPCs"
+                    autocomplete="off1"
+                    hint="If answered 'yes' above, please provide UPCs for food samples"
+                    persistent-hint
+                    :rules="[rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Sampling Adult Beverages -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="samplingAdultBeveragesRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Are you going to be sampling adult beverages?</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Sampling Adult Beverages -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="samsMediaRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Will this program be supported by Sam’s Club Media?</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Sweepstakes -->
+                  <v-container fluid>
+                    <v-radio-group
+                      v-model="sweepstakesRadios"
+                      mandatory
+                      column
+                    >
+                    <template v-slot:label>
+                      <div>Will there be a giveaway or sweepstakes included in the experience?</div>
+                    </template>
+
+                      <v-radio
+                        label="Yes"
+                        value="yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="no"
+                      ></v-radio>
+                    </v-radio-group>
+                  </v-container>
+
+                  <!-- Sweepstakes Details -->
+                  <v-text-field
+                    name="sweepstakesDetails"
+                    v-model="sweepstakesDetails"
+                    label="Sweepstakes Details"
+                    autocomplete="off1"
+                    hint="If answered 'yes' above, please include details"
+                    persistent-hint
+                    :rules="[rules.max100]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Event Description -->
+                  <v-textarea
+                    name="supplierQuestion"
+                    v-model="supplierQuestion"
+                    label="Supplier Question"
+                    hint="You may add up to 1 supplier specific question to the NPS survey. Please note, the question should be product driven."
+                    persistent-hint
+                    autocomplete="off1"
+                    :rules="[rules.max255]"
+                    color="#0067A0"
+                    outlined
+                    dense
+                  />
+
+                  <!-- Confirm approval -->
+                  <v-container fluid>
+                    <v-checkbox v-model="approvalCheckbox">
+                      <template v-slot:label>
+                        <div>
+                          I confirm that I have <strong>approval from a business owner</strong> to execute this event. This may include a merchant or services leader.
+                        </div>
+                      </template>
+                    </v-checkbox>
+                  </v-container>
+                
+                </v-card>
+                
                 <v-row justify="center">
                   <v-btn
                     type="submit"
-                    class="text-capitalize form-button white--text"
+                    class="text-capitalize form-button white--text mt-10"
                     color="#0067A0"
-                    width="130"
-                    depressed
+                    width="160"
                   >
                     Send
                   </v-btn>
                 </v-row>
               </v-form>
             </div>
-            <!-- anteater -->
-            <v-row
-              justify="center"
-              class="mt-15 hidden-lg-only hidden-sm-and-down"
-            >
-              <v-col align-self="end">
-                <!-- spacer md only -->
-                <v-spacer
-                  v-show="$vuetify.breakpoint.md"
-                  style="padding: 100px"
-                />
-                <!-- anteater -->
-                <v-row justify="center">
-                  <v-img
-                    src="@/assets/anteater.webp"
-                    max-height="390"
-                    max-width="500"
-                    class="mt-10"
-                  />
-                </v-row>
-              </v-col>
-            </v-row>
+
           </v-col>
         </v-row>
       </v-col>
@@ -392,33 +606,54 @@ export default class Home extends Vue {
       eventEndDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menuStartDate: false,
       menuEndDate: false,
-      eventTime: null,
-      menu2: false,
-
+      eventStartTime: false,
+      eventEndTime: false,
+      captureDataRadios: false,
+      photoUseRadios: false,
+      samplingFoodRadios: false,
+      samplingAdultBeveragesRadios: false,
+      sweepstakesRadios: false,
+      samsMediaRadios: false,
+      approvalCheckbox: false
      }
   }
 
   valid = true;
   lazy = false;
-  programName = "";
-  requesterCompanyName = "";
+  captureDataRadios = false;
+  photoUseRadios = false;
+  samplingFoodRadios = false;
+  sweepstakesRadios = false;
+  samplingAdultBeveragesRadios = false;
+  samsMediaRadios = false;
+  approvalCheckbox = false;
+  eventFootprint = "";
   requesterName = "";
   requesterEmail = "";
+  requesterPhone = "";
   menuStartDate = "";
   menuEndDate = "";
   eventStartDate = "";
   eventEndDate = "";
-  eventOverview = "";
-  targetCategory = "";
-  targetSuppliers = "";
-  additionalMarketing = "";
-  eventTime = "";
+  eventDescription = "";
+  eventStartTime = "";
+  eventEndTime = "";
+  eventStartMenu = "";
+  eventEndMenu = "";
+  covidProtocol = "";
+  sweepstakesDetails = "";
+  salesLiftProduct = "";
+  samplingFoodUPC = "";
+  supplierQuestion = "";
+  menu = "";
   menu2 = "";
   storeCount = "";
-  targetMarkets = "";
+  hoursPerClub = "";
   file = null;
 
-  eventTypeSelections=['Parking Lot', 'In Store', 'Sidewalk', 'Food Truck']
+  eventTypeSelections=['Parking Lot', 'In Club', 'Sidewalk']
+  activationGoalSelections=['Brand Awareness', 'Driving an Experience', 'Sales Lift']
+  contactTypeSelections=['Supplier Contact', 'Execution Agency']
   dateFormatted = "";
   // rules
   rules = {
@@ -439,17 +674,18 @@ export default class Home extends Vue {
     // if form is valid
     if (this.validateForm()) {
       let client = {
-        programName: this.programName,
-        requesterCompanyName: this.requesterCompanyName,
+        eventFootprint: this.eventFootprint,
         requesterName: this.requesterName,
         requesterEmail: this.requesterEmail,
+        requesterPhone: this.requesterPhone,
         eventStartDate: this.eventStartDate,
         eventEndDate: this.eventEndDate,
-        eventOverview: this.eventOverview,
-        targetMarkets: this.targetMarkets,
-        targetCategory: this.targetCategory,
-        targetSuppliers: this.targetSuppliers,
-        additionalMarketing: this.additionalMarketing
+        eventDescription: this.eventDescription,
+        covidProtocol: this.covidProtocol,
+        sweepstakesDetails: this.sweepstakesDetails,
+        samplingFoodUPC: this.samplingFoodUPC,
+        salesLiftProduct: this.salesLiftProduct,
+        supplierQuestion: this.supplierQuestion
       };
 
       const axiosConfig: AxiosRequestConfig = {
@@ -496,15 +732,11 @@ export default class Home extends Vue {
     (this.$refs.form as Vue & {
       reset: () => boolean;
     }).reset();
-    this.programName = "";
-    this.requesterCompanyName = "";
+    this.eventFootprint = "";
     this.requesterName = "";
     this.requesterEmail = "";
-    this.eventOverview = "";
-    this.targetMarkets = "";
-    this.targetCategory = "";
-    this.targetSuppliers = "";
-    this.additionalMarketing = "";
+    this.requesterPhone = "";
+    this.eventDescription = "";
   }
 }
 </script>
@@ -549,6 +781,18 @@ export default class Home extends Vue {
   .logo-size {
     max-height: 390px;
     max-width: 500px;
+  }
+}
+
+@media (max-width: 1263px) {
+  .logo-size {
+    position: relative;
+  }
+}
+
+@media (min-width: 1264px) {
+  .logo-size {
+    position: fixed;
   }
 }
 </style>
