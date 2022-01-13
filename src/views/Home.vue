@@ -70,7 +70,6 @@
                     :rules="[rules.required, rules.max255]"
                     color="#0067A0"
                     outlined
-                    dense
                     class="mb-8"
                   />
 
@@ -83,7 +82,6 @@
                     :rules="[rules.required, rules.alphabeticOnly, rules.max60]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Start date -->
@@ -273,6 +271,7 @@
                     label="Activation Goal"
                     hint="Please select an activation goal"
                     class="mt-2 mb-4"
+                    outlined
                   >
                   </v-select>
 
@@ -287,9 +286,8 @@
                     autocomplete="off1"
                     :rules="[rules.required, rules.max100]"
                     color="#0067A0"
-                    outlined
-                    dense
                     class="mb-8"
+                    outlined
                   />
 
                   <!-- file upload -->
@@ -315,7 +313,6 @@
                     :rules="[rules.required, rules.max100]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Client Email -->
@@ -327,7 +324,6 @@
                     :rules="[rules.required, rules.email, rules.max100]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Client Phone -->
@@ -339,7 +335,6 @@
                     :rules="[rules.required, rules.max100]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Contact types -->
@@ -347,6 +342,7 @@
                     :items="contactTypeSelections"
                     label="Contact Type"
                     hint="Please select an Contact type"
+                    outlined
                   >
                   </v-select>
 
@@ -362,7 +358,6 @@
                     :rules="[rules.required, rules.max255]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Member Communication -->
@@ -370,6 +365,7 @@
                     :items="memberCommunicationSelections"
                     label="Member Communication Plan"
                     hint="Please select member communication plan"
+                    outlined
                   >
                   </v-select>
 
@@ -378,6 +374,7 @@
                     :items="eventTypeSelections"
                     label="Location of the event"
                     hint="Please select location of the event"
+                    outlined
                   >
                   </v-select>
 
@@ -397,7 +394,6 @@
                     :rules="[rules.required, rules.max255]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Capturing Data -->
@@ -478,7 +474,6 @@
                     :rules="[rules.max100]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Sampling Adult Beverages -->
@@ -561,7 +556,6 @@
                     :rules="[rules.max100]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Event Description -->
@@ -575,7 +569,6 @@
                     :rules="[rules.max255]"
                     color="#0067A0"
                     outlined
-                    dense
                   />
 
                   <!-- Confirm approval -->
