@@ -799,7 +799,7 @@ export default class Home extends Vue {
 @media (max-width: 599px) {
   .logo-size {
     max-height: 90px;
-    max-width: 150px;
+    max-width: 250px;
   }
 }
 @media (min-width: 600px) {
